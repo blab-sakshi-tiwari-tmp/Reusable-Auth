@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import Home from './Home'
 import { Auth } from "../utils/utils";
-import { useRouter } from "next/router";
 import Homecomp from "./Homecomp";
 export type returntype={
   username: string; password: string;
@@ -46,31 +45,27 @@ export default function Home() {
       role:"",
       response:""
   }
-  const [resulttitle, setResulttitle] = useState('');
+  const [resultrole, setResultrole] = useState('');
   const [data, setData] = useState<dataType>(dataValue);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   
-  const Submit: SubmitHandler<returntype> =async (data) => 
-
-  { console.log(errors);
-  
-    await new Promise((resolve)=>{Auth(data)
-    .then((r)=>
+  const submit = async (e:React.FormEvent<HTMLFormElement>) => 
+  { console.log(e);
+    // e.preventDefault();
+    const resdata={
+      username,password
+    }
+  const res = await Auth(resdata)
+  console.log(res);
+  if(res.response)
     {
-    resolve('ok')
-    if(r.response)
-    {
-      setData(r)
-      setResulttitle(r.role)
-      // router.push(`./a`)
+      setData(res)
+      setResultrole(res.role)
     }else{
       setPassword('')
       setUsername('')
     }
-    return r
-  })})
-    
 }
 
 
@@ -85,7 +80,7 @@ export default function Home() {
       <main>
         
         
-            {(resulttitle && <Homecomp persondata={data} getdata={resulttitle} setgetdata={setResulttitle}/>) || <div
+            {(resultrole && <Homecomp persondata={data} resultrole={resultrole} setResultrole={setResultrole}/>) || <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -95,9 +90,8 @@ export default function Home() {
           }}
         >
           <div style={{ width: 400, height: 400 }}>
-            <form onSubmit={handleSubmit(Submit)}>
+            <form onSubmit={submit}>
               <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-
               <div className="form-floating">
                 <input
                   type="text"
@@ -136,7 +130,6 @@ export default function Home() {
             </form>
           </div>
         </div>}
-        
       </main>
     </>
   );

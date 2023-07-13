@@ -1,6 +1,6 @@
 type propstype={
-    getdata:string,
-    setgetdata:Function,
+    resultrole:string,
+    setResultrole:Function,
     persondata:object
 }
 
@@ -10,13 +10,13 @@ import Admin from "./Admin";
 import Logout from "./Logout";
 import { useState } from "react";
 function Homecomp(props:propstype) {
-    const [data,setData]=useState<boolean>(true)
-    const {getdata,setgetdata,persondata}=props
-    console.log(persondata);
+    const [islogin,setIslogin]=useState<boolean>(true)
+    const {resultrole,setResultrole,persondata}=props
+    // console.log(persondata);
     
     // if(persondata){
     //     // const {role}=persondata
-        localStorage.setItem('token',getdata)
+        localStorage.setItem('token',resultrole)
     // }
     
     
@@ -24,10 +24,10 @@ function Homecomp(props:propstype) {
         <>
 
         <h1>home screen</h1>
-        {(getdata==='admin' ) && <Admin/>}
-             { getdata==='teacher'&& <Teacher/>}
-            { getdata==='student'&& <Student/>}
-            <Logout data={data} setdata={setData} resultprop={setgetdata}/>
+        {(resultrole==='admin' ) && <Admin/>}
+             { resultrole==='teacher'&& <Teacher/>}
+            { resultrole==='student'&& <Student/>}
+            <Logout islogin={islogin} setIslogin={setIslogin} setResultrole={setResultrole}/>
         </>
     )
 }

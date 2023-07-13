@@ -45,10 +45,11 @@ export const Auth = async (data: returntype) => {
     response:''};
   list.map((elem)=>{
     const {username,password,personaldata}=elem
-    console.log(elem," ",data);
+    // console.log(elem," ",data);
     
     if (data.username === username && data.password === password) 
-    { console.log(personaldata);
+    { 
+      // console.log(personaldata);
       sendresult=personaldata
       return personaldata;
     }

@@ -2,20 +2,20 @@
 import Home  from './page'
 import { useState } from "react"
 type propstype={
-    data:boolean
-    setdata:Function
-    resultprop:Function
+    islogin:boolean
+    setIslogin:Function
+    setResultrole:Function
 }
 function Logout(props:propstype) {
-    const {data,setdata,resultprop}=props
+    const {islogin,setIslogin,setResultrole}=props
     function onclickHandler(){
-        setdata(false)
-        resultprop(false)
+        setIslogin(false)
+        setResultrole("")
         localStorage.clear()
     }
     return (
         <>
-        {(data && <button type="button"  onClick={()=>onclickHandler()}>logout</button>) || <Home/>}
+        {(islogin && <button type="button"  onClick={()=>onclickHandler()}>logout</button>) || <Home/>}
         
         </>
     )
