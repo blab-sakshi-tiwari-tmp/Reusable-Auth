@@ -13,14 +13,10 @@ function Logout(props:propstype) {
     const router=useRouter()
 const {setResultrole}=useContext(dataContext)
     const {islogin,setIslogin}=props
-
     function onclickHandler(){
-        setTimeout(() => {
-            setIslogin(false)
-            localStorage.clear()
-            setResultrole("")  
-        }, 1000);
-        
+        setIslogin(false)
+        localStorage.clear()
+        setResultrole("")
     }
     return (
         <>

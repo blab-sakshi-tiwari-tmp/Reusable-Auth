@@ -9,13 +9,13 @@ import Student from "./Studentcomp";
 import Admin from "./Admincomp";
 
 import Logout from "./Logoutcomp";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useContext } from "react";
 import { dataContext } from "@/contextapi/dataContext";
 function Homecomp() {
 
-const {resultrole,data}=useContext(dataContext)
+const {resultrole,setData,data}=useContext(dataContext)
     const [islogin,setIslogin]=useState<boolean>(true)
     
     return (

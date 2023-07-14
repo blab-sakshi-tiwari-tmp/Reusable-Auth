@@ -14,12 +14,10 @@ function Admin({value}:dataType) {
     const {resultrole}=useContext(dataContext)
     const {dob,gender,location,role}=value
     return (
-        <> 
-        <h1>welcome {resultrole}</h1><br/><br/>
-        <h6>gender: </h6>{gender}
-        <h6>location: </h6>{location}
-        <h6>dob: </h6>{dob}
-        </>
+        <> <h1>welcome {resultrole}</h1><br/><br/>
+        <strong>gender:{gender} </strong>
+        <span>location: {location} </span>
+        <span>dob: {dob}</span></>
     )
 }
 

@@ -56,7 +56,7 @@ export const Auth = async (data: returntype) => {
   };
   list.map((elem)=>{
     const {username,password,personaldata}=elem
-    // console.log(elem," ",data);
+    console.log(elem," ",data);
     
     if (data.username === username && data.password === password) 
     { 

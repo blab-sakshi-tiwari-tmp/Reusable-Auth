@@ -18,12 +18,12 @@ function DataContextProvider({children}: props) {
       setDatastate(parsedData)
       setResultrolestate(parsedData?.role)
       console.log(parsedData);
+      console.log(datastate);
+      // console.log(re);
+      
+      
+      
   },[])
-
-  useEffect(() => {
-    console.log(datastate);
-    console.log(resultrolestate);
-  }, [datastate, resultrolestate])
   
   const valuetoshare={
     resultrole:resultrolestate,

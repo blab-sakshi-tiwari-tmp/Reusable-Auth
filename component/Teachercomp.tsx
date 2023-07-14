@@ -14,9 +14,9 @@ function Teacher({value}:dataType) {
     const {dob,gender,location,role}=value
     return (
         <> <h1>welcome {resultrole}</h1><br/><br/>
-        <h6>gender: </h6>{gender}
-        <h6>location: </h6>{location}
-        <h6>dob: </h6>{dob}t</>
+        <strong>gender:{gender} </strong>
+        <span>location: {location} </span>
+        <span>dob: {dob}</span></>
     )
 }
 
