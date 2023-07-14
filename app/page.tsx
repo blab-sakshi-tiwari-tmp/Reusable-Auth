@@ -6,65 +6,84 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import Home from './Home'
-import { Auth } from "../utils/utils";
-import Homecomp from "./Homecomp";
+import { Auth } from "../component/utilscomp";
+import { useRouter } from "next/navigation"
+import Homecomp from "../component/Homecomp";
+import { useContext } from "react";
+import { dataContext } from "@/contextapi/dataContext";
 export type returntype={
   username: string; password: string;
 }
 export default function Home() {
+  const router=useRouter()
+  const {resultrole,setResultrole,data,setData}=useContext(dataContext)
   const schema = yup.object().shape({
     username: yup.string()
+                .required("username is valid")
                 .min(4, "Mininum 4 characters")
                 .max(15, "Maximum 15 characters")
-                .required("You must enter a username"),
+                ,
     password: yup
       .string()
+      .required("password is valid")
       .min(4, "password must be more than 4 characters")
       .max(32, "password must be less than 32 characters")
-      .required("password is valid"),
+      
   });
-  // const router=useRouter()
+  
+// router.push('/')
   const {
+    setError,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<returntype>({
     resolver: yupResolver(schema),
   });
-  type dataType={
-    dob:string,
-      gender:string,
-      location:string,
-      role:string,
-      response:string
-  }
-  const dataValue={
-    dob:"",
-      gender:"",
-      location:"",
-      role:"",
-      response:""
-  }
-  const [resultrole, setResultrole] = useState('');
-  const [data, setData] = useState<dataType>(dataValue);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // type dataType={
+  //   dob:string,
+  //     gender:string,
+  //     location:string,
+  //     role:string,
+  //     response:string
+  // }
+  // const dataValue={
+  //   dob:"",
+  //     gender:"",
+  //     location:"",
+  //     role:"",
+  //     response:""
+  // }
+  // const [resultrole, setResultrole] = useState('');
+  // const [data, setData] = useState<dataType>(dataValue);
+  const [username, setUsername] = useState("nubul");
+  const [password, setPassword] = useState("nubul123");
   
-  const submit = async (e:React.FormEvent<HTMLFormElement>) => 
-  { console.log(e);
-    // e.preventDefault();
-    const resdata={
-      username,password
-    }
-  const res = await Auth(resdata)
-  console.log(res);
-  if(res.response)
+  const submit:SubmitHandler<returntype> = async (formData:returntype) => 
     {
-      setData(res)
+      
+  const res = await Auth(formData)
+  if(res.response==='ok')
+    { 
+      localStorage.setItem('persondata',JSON.stringify(res))
+      setData(JSON.parse(localStorage.getItem('persondata') || '{}'))
+      // console.log(data);
+      
       setResultrole(res.role)
-    }else{
+    }else if(res.response==='not ok'){
+      if(res.passwordvalid==='yes')
+        {setError("password",{type:"custom",message:"password is incorrect"})
+        setPassword('')
+      }
+      else if(res.usernamevalid==='yes')
+        {setError("username",{type:"custom",message:"username is incorrect"})
+        setUsername('')
+      }else{
+      setError("password",{type:"custom",message:"password is incorrect"})
+      setError("username",{type:"custom",message:"username is incorrect"})
       setPassword('')
       setUsername('')
+      }
     }
 }
 
@@ -78,9 +97,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        
-        
-            {(resultrole && <Homecomp persondata={data} resultrole={resultrole} setResultrole={setResultrole}/>) || <div
+
+            {resultrole && router.push('./homepage') || <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -90,7 +108,7 @@ export default function Home() {
           }}
         >
           <div style={{ width: 400, height: 400 }}>
-            <form onSubmit={submit}>
+            <form onSubmit={handleSubmit(submit)}>
               <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
               <div className="form-floating">
                 <input
