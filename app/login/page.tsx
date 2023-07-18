@@ -17,10 +17,8 @@ export type returntype={
   username: string; password: string;
 }
 export default function Home() {
-  const pathname = usePathname()
   const router=useRouter()
-  const [counter,setCounter]=useState(1)
-  const {setIslogin,setResultrole,islogin,data,setData}=useContext(dataContext)
+  const {setIslogin,setResultrole,islogin,setData}=useContext(dataContext)
   const schema = yup.object().shape({
     username: yup.string()
                 .required("username is valid")
@@ -36,7 +34,6 @@ export default function Home() {
   });
   useEffect(() => {
     const parsedData = JSON.parse(localStorage.getItem("persondata") || "{}");
-    console.log(parsedData);
     setData(parsedData)
     if(Object.keys(parsedData).length === 0){
       setIslogin(false)
