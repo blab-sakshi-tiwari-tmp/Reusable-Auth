@@ -1,24 +1,30 @@
 "use client"
-import Home  from './page'
-import { useState } from "react"
 type propstype={
     islogin:boolean
     setIslogin:Function
-    setResultrole:Function
 }
+
+import { useRouter } from "next/navigation"
+import { useContext } from "react";
+import { dataContext } from "@/contextapi/dataContext";
+
 function Logout(props:propstype) {
-    const {islogin,setIslogin,setResultrole}=props
+
+    const router=useRouter()
+const {setResultrole,resultrole}=useContext(dataContext)
+    const {islogin,setIslogin}=props
     function onclickHandler(){
         setIslogin(false)
-        setResultrole("")
+        
         localStorage.clear()
+        // setResultrole("")
+        // console.log('logout',resultrole);
+        
+        router.push('./login')
     }
     return (
         <>
-        {(islogin && <button type="button"  onClick={()=>onclickHandler()}>logout</button>) || <Home/>}
-        
+        {(islogin && <button type="button"  onClick={()=>onclickHandler()}>logout</button>) }
         </>
     )
 }
-
-export default Logout

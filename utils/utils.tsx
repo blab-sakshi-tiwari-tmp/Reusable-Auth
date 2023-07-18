@@ -1,5 +1,5 @@
 "use client"
-import {returntype}  from '../app/page'
+import {returntype}  from '../app/login/page'
 const list=[
   {
     username:'nubul',

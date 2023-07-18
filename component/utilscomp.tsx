@@ -1,5 +1,5 @@
 "use client"
-import {returntype}  from '../app/page'
+import {returntype}  from '../app/login/page'
 const list=[
   {
     username:'nubul',
@@ -56,11 +56,9 @@ export const Auth = async (data: returntype) => {
   };
   list.map((elem)=>{
     const {username,password,personaldata}=elem
-    console.log(elem," ",data);
     
     if (data.username === username && data.password === password) 
     { 
-      // console.log(personaldata);
       sendresult=personaldata
       
     }else if(data.username === username ){

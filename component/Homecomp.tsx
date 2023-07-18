@@ -15,9 +15,20 @@ import { useContext } from "react";
 import { dataContext } from "@/contextapi/dataContext";
 function Homecomp() {
 
-const {resultrole,setData,data}=useContext(dataContext)
-    const [islogin,setIslogin]=useState<boolean>(true)
+const {resultrole,islogin,setIslogin,setData,data}=useContext(dataContext)
+    // const [islogin,setIslogin]=useState<boolean>(true)
+    // const {islogin,setIslogin}=useContext(dataContext)
+    // useEffect(() => {
+    //   const parsedData = JSON.parse(localStorage.getItem("persondata") || "{}");
+    //   if(parsedData)
+    //   setIslogin(true)
+    // }, [])
     
+    // useEffect(() => {
+    //   console.log('in home',islogin);
+      
+    // }, [islogin])
+// const {setResultrole,islogin,setIslogin
     return (
         <>
         <h1>home screen</h1>
